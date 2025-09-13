@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIS Mendel - Eccellenza Agraria 4.0</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 50%, #6ba968 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpath d='M50 10c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20zm0 5c-8.284 0-15 6.716-15 15s6.716 15 15 15 15-6.716 15-15-6.716-15-15-15z'/%3E%3Cpath d='M70 50c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20zm0 5c-8.284 0-15 6.716-15 15s6.716 15 15 15 15-6.716 15-15-6.716-15-15-15z'/%3E%3Cpath d='M30 50c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20zm0 5c-8.284 0-15 6.716-15 15s6.716 15 15 15 15-6.716 15-15-6.716-15-15-15z'/%3E%3C/g%3E%3C/svg%3E");
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out 0.9s both;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2d5a27;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #2d5a27;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #2d5a27, #6ba968);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* IMPORTANTE: Classe specifica per titoli bianchi */
+        .white-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: white !important;
+            position: relative;
+        }
+
+        .white-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: rgba(255,255,255,0.8) !important;
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(45, 90, 39, 0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(45, 90, 39, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2d5a27;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(45, 90, 39, 0.1);
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(45, 90, 39, 0.15);
+        }
+
+        .course-header {
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .course-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .course-body {
+            padding: 2rem;
+        }
+
+        .course-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .course-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            color: #666;
+        }
+
+        .course-features li::before {
+            content: '✓';
+            color: #2d5a27;
+            font-weight: bold;
+            margin-right: 1rem;
+            background: rgba(45, 90, 39, 0.1);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .innovation-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .innovation-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .innovation-icon {
+            font-size: 3rem;
+            color: #2d5a27;
+            margin-bottom: 1.5rem;
+        }
+
+        .innovation-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d5a27;
+            margin-bottom: 1rem;
+        }
+
+        .facilities-section {
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            color: white;
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .facility-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .facility-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+
+        .facility-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #a8d8a8;
+        }
+
+        .partners-section {
+            background: #f8f9fa;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #a8d8a8;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2d5a27;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-to-top:hover {
+            background: #4a7c59;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .white-title {
+                font-size: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>IIS MENDEL</h1>
+            <p class="hero-subtitle">Eccellenza Agraria 4.0 dal 1988</p>
+
+        <div style="margin-top:2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="https://agrariomendel.edu.it/allegati/all/4640-ptof-2025-2028.pdf" target="_blank" 
+               style="background:#4a7c59; color:white; padding:0.8rem 1.5rem; border-radius:30px; text-decoration:none; font-weight:bold;">
+               📘 PTOF 2025-2028
+            </a>
+            <a href="https://heyzine.com/flip-book/ac47883e05.html" target="_blank" 
+               style="background:#2d5a27; color:white; padding:0.8rem 1.5rem; border-radius:30px; text-decoration:none; font-weight:bold;">
+               🌐 PTOF Interattivo
+            </a>
+            <a href="https://agrariomendel.edu.it/allegati/all/4528-curricolo-educazione-civica-tecnico-e-professionale-rivisto-nuove-linee-guida-sett-2024-seconda.pdf" target="_blank" 
+               style="background:#6ba968; color:white; padding:0.8rem 1.5rem; border-radius:30px; text-decoration:none; font-weight:bold;">
+               📄 Allegati (PDF)
+            </a>
+        </div>
+
+            <p class="hero-description">
+                Formiamo i professionisti del futuro nell'agricoltura sostenibile e tecnologicamente avanzata. 
+                Con 250 ettari di azienda agraria, laboratori all'avanguardia e partnership internazionali, 
+                offriamo un'esperienza formativa unica nel panorama italiano.
+            </p>
+            <div class="cta-buttons">
+                <a href="#corsi" class="btn btn-primary">Scopri i Corsi</a>
+                <a href="#contatti" class="btn btn-secondary">Contattaci</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">La Nostra Storia</h2>
+            <div class="innovation-grid">
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="innovation-title">1849-1933: Le Origini</h3>
+                    <p>Francesco Ferrazzi fonda la Fondazione Scuola di Agricoltura Ferrazzi e Cova per promuovere l'insegnamento tecnico-pratico nel settore agricolo attraverso una scuola gratuita per i figli dei contadini.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="innovation-title">1988-1990: Nascita dell'IIS</h3>
+                    <p>Nasce l'Istituto Tecnico Agrario Statale, intitolato nel 1990 a Gregorio Mendel, padre della genetica. Inizia una nuova era di formazione tecnica d'eccellenza.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="innovation-title">2021-2024: Era 4.0</h3>
+                    <p>Avvio del progetto "Mendel 4.0" con laboratori innovativi, digitalizzazione, partnership internazionali e finanziamenti PNRR per la transizione digitale ed ecologica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">600</div>
+                    <div class="stat-label">Studenti</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">250</div>
+                    <div class="stat-label">Ettari di Azienda Agraria</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">128</div>
+                    <div class="stat-label">Docenti Qualificati</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">35+</div>
+                    <div class="stat-label">Anni di Esperienza</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="section" id="corsi">
+        <div class="container">
+            <h2 class="section-title">La Nostra Offerta Formativa</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3 class="course-title">Istituto Tecnico Agrario</h3>
+                        <p>Diploma di Perito Agrario (5 anni)</p>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-features">
+                            <li>Gestione dell'ambiente e del territorio (GAT): conservazione e tutela del patrimonio ambientale, operazioni di estimo e genio rurale</li>
+                            <li>Produzioni e trasformazioni (PT): organizzazione delle produzioni animali e vegetali, trasformazioni e commercializzazione</li>
+                            <li>Laboratori biotecnologie, chimica, meristematica</li>
+                            <li>PCTO oltre 150 ore con aziende del territorio</li>
+                            <li>Preparazione ai test universitari per facoltà scientifiche</li>
+                            <li>Certificazioni linguistiche B1 e B2</li>
+                        </ul>
+                        <p><strong>Orario:</strong> 32-33 ore settimanali, Lunedì-Venerdì</p>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3 class="course-title">Istruzione Professionale</h3>
+                        <p>Diploma + Qualifica Professionale</p>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-features">
+                            <li>Qualifica Operatore Agricolo (3 anni)</li>
+                            <li>Diploma Tecnico Agricolo (4 anni)</li>
+                            <li>Valorizzazione prodotti del territorio</li>
+                            <li>Apprendistato di primo livello</li>
+                            <li>Inserimento diretto nel mondo del lavoro</li>
+                        </ul>
+                        <p><strong>Focus:</strong> Competenze pratiche e professionalizzanti</p>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3 class="course-title">Corsi Serali (IDA)</h3>
+                        <p>Per Adulti e Lavoratori</p>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-features">
+                            <li>Istituto Tecnico Serale (3 anni)</li>
+                            <li>Istituto Professionale Serale</li>
+                            <li>Orario flessibile 22 ore/settimana</li>
+                            <li>Riconoscimento crediti formativi</li>
+                            <li>Patto Formativo Individuale</li>
+                        </ul>
+                        <p><strong>Orario:</strong> Lunedì-Venerdì, uscita alle 21:45</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inclusion and Excellence Section -->
+    <section class="section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Inclusione e Valorizzazione delle Eccellenze</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3 class="course-title">Inclusione Scolastica</h3>
+                        <p>Supporto per ogni studente</p>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-features">
+                            <li>Piani Didattici Personalizzati (PDP) per DSA e BES</li>
+                            <li>Piani Educativi Individualizzati (PEI) con piattaforma COSMI.ICF</li>
+                            <li>37 cattedre di sostegno per 69 studenti con disabilità</li>
+                            <li>Progetti specifici: "Progetto autonomia", "Progetto serra", "Progetto creatività"</li>
+                            <li>Abbattimento barriere architettoniche</li>
+                            <li>Collaborazione con neuropsichiatria territoriale</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3 class="course-title">Recupero Competenze</h3>
+                        <p>Nessuno rimane indietro</p>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-features">
+                            <li>Corsi di recupero extrascolastici</li>
+                            <li>"Sportelli" per chiarimenti e esercizi</li>
+                            <li>Recuperi in itinere e pausa didattica</li>
+                            <li>Attività strutturate di potenziamento inglese</li>
+                            <li>Team docenti esperti per contrasto dispersione</li>
+                            <li>50 allievi in azioni PNRR anti-dispersione</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3 class="course-title">Valorizzazione Eccellenze</h3>
+                        <p>Talenti che brillano</p>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-features">
+                            <li>Gara Nazionale tra Istituti Agrari</li>
+                            <li>Certificazioni linguistiche B2 (FCE)</li>
+                            <li>Concorso poesia e fotografia "Uomo e natura"</li>
+                            <li>Progetti internazionali Utah State University</li>
+                            <li>Stage linguistici in Irlanda</li>
+                            <li>Riconoscimento della "resilienza" come eccellenza</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section -->
+    <section class="section innovation-section">
+        <div class="container">
+            <h2 class="section-title">Innovazione e Tecnologia</h2>
+            <div class="innovation-grid">
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="innovation-title">Progetto Mendel 4.0</h3>
+                    <p>Agricoltura di precisione con droni, sensori IoT, intelligenza artificiale per la difesa fitosanitaria e analisi dei dati in tempo reale.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="innovation-title">Laboratori Avanzati</h3>
+                    <p>Biotecnologie vegetali, microscopia digitale, impianti idroponici e aeroponici, mini-caseificio didattico e serra automatizzata.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="innovation-title">Partnership Internazionali</h3>
+                    <p>Scambi con Utah State University, stage linguistici in Irlanda, certificazioni Cambridge English B1 e B2.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="innovation-title">Sostenibilità Ambientale</h3>
+                    <p>Progetti PNRR per la transizione ecologica, energie rinnovabili, compostaggio digitale e agricoltura conservativa.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="innovation-title">Digital Learning</h3>
+                    <p>Digital Board in ogni aula, aule TEAL, realtà aumentata, Google Workspace, piattaforme innovative per l'apprendimento.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="innovation-title">Educazione Civica</h3>
+                    <p>33 ore annuali trasversali sui tre nuclei: Costituzione, Sviluppo sostenibile e Cittadinanza digitale, con taglio specifico per l'indirizzo agrario e formazione alla cittadinanza responsabile.</p>
+                </div>
+            </div>
+            
+            <div class="innovation-grid" style="margin-top: 3rem;">
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="innovation-title">PCTO - Percorsi Competenze Trasversali</h3>
+                    <p>Istituto Tecnico: oltre 150 ore con convegni, visite aziendali e attività presso l'azienda S. Grato. IeFP: 470 ore (3 anni) + 200 ore (4° anno). Orientamento, certificazione competenze e credito scolastico.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="innovation-title">Moduli Orientamento Formativo</h3>
+                    <p>30 ore annuali per classi terze, quarte e quinte (dal 2024-25 anche biennio), integrati con PCTO e documentati nell'E-Portfolio studenti tramite piattaforma Unica del Ministero.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PNRR Projects Section -->
+    <section class="section" style="background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);">
+        <div class="container">
+            <h2 class="section-title">Progetti PNRR 2025-2028</h2>
+            <div class="innovation-grid">
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="innovation-title">Contrasto Dispersione Scolastica</h3>
+                    <p>Percorsi di mentoring, attività di potenziamento competenze base, orientamento con coinvolgimento famiglie. 50 allievi e 11 docenti coinvolti.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="innovation-title">Scuola 4.0 - Laboratori Futuri</h3>
+                    <p>Ambienti innovativi per didattica digitale, nuovo Laboratorio Biotecnologie Vegetali con microscopia digitale, competenze coding e programmazione.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="innovation-title">Competenze STEM e Multilinguistiche</h3>
+                    <p>Potenziamento materie scientifiche, preparazione test universitari, certificazioni linguistiche B1 e B2, moduli CLIL, contrasto stereotipi di genere.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="innovation-title">Transizione Digitale</h3>
+                    <p>Formazione personale su AI e innovazione digitale, sviluppo competenze digitali per utenti, creazione Comunità di Pratiche, leadership digitale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="section facilities-section">
+        <div class="container">
+            <!-- IMPORTANTE: Qui uso la classe white-title per il colore bianco -->
+            <h2 class="white-title">Le Nostre Strutture</h2>
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <h3>Azienda Agricola San Grato</h3>
+                    <p>250 ettari per produzione frutticola, vitivinicola, orticola, cerealicola, foraggera, zootecnica ed energetica. Centro nevralgico per PCTO e formazione pratica.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Laboratori di Eccellenza</h3>
+                    <p>Biotecnologie vegetali, chimica, meristematica, trasformazione prodotti con mini-caseificio didattico, microscopia digitale, compostaggio digitalizzato.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Serre Tecnologiche</h3>
+                    <p>900 mq di serra automatizzata per piante ornamentali e ortaggi, impianti idroponici e aeroponici, serra fungaia, controllo climatico avanzato.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>Ambienti Digitali 4.0</h3>
+                    <p>32 aule con Digital Board (30 dotate), 2 aule TEAL, aula multifunzionale con realtà aumentata, aula deprivazione sensoriale, rete fibra ottica.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>Biodiversità e Sostenibilità</h3>
+                    <p>Apiario didattico, progetti conservazione impollinatori, riqualificazione aree verdi comunali, energie rinnovabili, agricoltura conservativa.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-drone"></i>
+                    </div>
+                    <h3>Tecnologie Avanzate</h3>
+                    <p>Droni tecnici per mappatura, GPS robotizzati, sensori IoT per umidità suolo, trappole digitali con IA, sistemi telemetrici, data processing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Section -->
+    <section class="section partners-section">
+        <div class="container">
+            <h2 class="section-title">Partnership e Collaborazioni Territoriali</h2>
+            <div class="innovation-grid">
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="innovation-title">Utah State University - USA</h3>
+                    <p>Progetto triennale di scambio docenti per buone pratiche, potenziamento area scientifica, "English Talks" su Agenda 2030 e orientamento internazionale.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="innovation-title">Centro Lingue Cambridge</h3>
+                    <p>Partnership con "Centro lingue" di Busto Arsizio per corsi e esami Cambridge English, stage linguistici in Irlanda (Dublino) per studenti del triennio.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3 class="innovation-title">Progetti Ambientali Territoriali</h3>
+                    <p>Collaborazioni con Comuni di Villa Cortese, Marnate, Dairago per riqualificazione aree verdi. "Santuario in fiore" con Legambiente Parabiago.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="innovation-title">Reti Scolastiche</h3>
+                    <p>Scuola polo inclusione (IC Bonvesin de la Riva), CPIA 4 Legnano, Rete Internazionalizzazione PALEOCAPA, Rete Scuole Milano Ambiente.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="innovation-title">Fondazione Ferrazzi-Cova</h3>
+                    <p>Collaborazione storica dal 1849 per innovazione, ricerca e rispetto della tradizione rurale locale. Partnership "Strada Provinciale 12 - Luoghi possibili".</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="innovation-title">Aziende del Territorio</h3>
+                    <p>Convenzioni per PCTO con aziende di produzione e trasformazione latte e carne, florovivaistiche, agroalimentari. Collaborazioni con Consorzi e Parchi.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 4rem;">Opportunità per Ogni Target</h2>
+            <div class="innovation-grid">
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="innovation-title">Per le Aziende</h3>
+                    <p>Partnership per PCTO, ricerca applicata, consulenza tecnica, formazione del personale e progetti di innovazione tecnologica nel settore agrario. Accesso a laboratori 4.0.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="innovation-title">Per le Famiglie</h3>
+                    <p>Supporto completo all'orientamento, piani personalizzati per DSA e BES, recupero competenze, valorizzazione eccellenze, preparazione universitaria e orientamento internazionale.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="innovation-title">Per gli Studenti</h3>
+                    <p>Formazione completa tecnico-pratica, stage internazionali, certificazioni linguistiche, laboratori innovativi, percorsi di eccellenza verso università e lavoro, competenze globali.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contatti">
+        <div class="container">
+            <!-- IMPORTANTE: Qui uso la classe white-title per il colore bianco -->
+            <h2 class="white-title">Contattaci</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Dove Siamo</h3>
+                        <p>Via F. Ferrazzi, 15<br>20035 Villa Cortese (MI)<br>Italia</p>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Telefono</h3>
+                        <p>0331-434311<br><br>Orari Segreteria:<br>Lun-Ven 8:00-17:00</p>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Email</h3>
+                        <p>miis08300x@istruzione.it<br><br>PEC:<br>miis08300x@pec.istruzione.it</p>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Sito Web</h3>
+                        <p>www.agrariomendel.edu.it<br><br>Codice Meccanografico:<br>MIIS08300X</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // Scroll to top functionality
+        window.addEventListener('scroll', function() {
+            const scrollButton = document.querySelector('.scroll-to-top');
+            if (window.pageYOffset > 300) {
+                scrollButton.classList.add('visible');
+            } else {
+                scrollButton.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animations
+        document.querySelectorAll('.stat-card, .course-card, .innovation-card, .facility-card, .contact-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+    <footer style="background:#2d5a27; color:white; text-align:center; padding:1rem; margin-top:2rem;">
+        2025 - Pagina creata dal Team Buone Pratiche - IIS MENDEL - Villa Cortese (MI)
+    </footer>
+
+</body>
+</html>
