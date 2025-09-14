@@ -239,13 +239,15 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .stat-card {
-            padding: 2.5rem 1.5rem;
-            border-radius: 20px;
+            padding: 2rem 1rem;
+            border-radius: 16px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -253,24 +255,24 @@
         }
 
         .stat-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .stat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
             animation: pulse 2s infinite;
         }
 
         .stat-number {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .stat-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
@@ -597,107 +599,6 @@
             color: var(--primary-green);
         }
 
-        .timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, var(--primary-green), var(--accent-green));
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin: 3rem 0;
-            width: 100%;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-left: 60%;
-            text-align: left;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-right: 60%;
-            text-align: right;
-        }
-
-        .timeline-year {
-            position: absolute;
-            left: 50%;
-            top: 1rem;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(45, 90, 39, 0.3);
-            z-index: 2;
-        }
-
-        .timeline-content {
-            background: white;
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            position: relative;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .timeline-content h3 {
-            color: var(--primary-green);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .timeline-content p {
-            color: var(--text-dark);
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content::before {
-            content: '';
-            position: absolute;
-            left: -10px;
-            top: 2rem;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent white transparent transparent;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content::before {
-            content: '';
-            position: absolute;
-            right: -10px;
-            top: 2rem;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent white;
-        }
-
         .footer {
             background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
             color: white;
@@ -792,32 +693,6 @@
         }
 
         @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-year {
-                left: 20px;
-                transform: none;
-                font-size: 0.9rem;
-                padding: 0.8rem 1rem;
-            }
-
-            .timeline-item:nth-child(odd) .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                margin-left: 60px;
-                margin-right: 0;
-                text-align: left;
-            }
-
-            .timeline-item:nth-child(odd) .timeline-content::before,
-            .timeline-item:nth-child(even) .timeline-content::before {
-                left: -10px;
-                right: auto;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent white transparent transparent;
-            }
-
             .hero {
                 padding: 2rem 0;
             }
@@ -832,7 +707,19 @@
             }
             
             .stat-card {
-                padding: 2rem 1rem;
+                padding: 1.5rem 0.8rem;
+            }
+            
+            .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .stat-icon {
+                font-size: 1.8rem;
+            }
+            
+            .stat-label {
+                font-size: 0.85rem;
             }
             
             .cards-grid {
@@ -878,7 +765,7 @@
                 <a href="https://agrariomendel.edu.it/allegati/all/4640-ptof-2025-2028.pdf" target="_blank" class="ptof-link"
                    style="background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%) !important; border: 2px solid rgba(255, 64, 129, 0.4) !important; color: white !important;">
                     <i class="fas fa-file-contract" style="margin-right: 0.5rem;"></i>
-                    PTOF 2025-2028
+                    PTOF 2025-2028 (PDF)
                 </a>
                 <a href="https://heyzine.com/flip-book/ac47883e05.html" target="_blank" class="ptof-link"
                    style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%) !important; border: 2px solid rgba(255, 152, 0, 0.4) !important; color: white !important;">
@@ -1175,7 +1062,7 @@
                 </div>
 
                 <div class="facility-card animate-on-scroll">
-                    <div class="facility-icon"><i class="fas fa-drone"></i></div>
+                    <div class="facility-icon"><i class="fas fa-satellite-dish"></i></div>
                     <h3 class="facility-title">Tecnologie Avanzate</h3>
                     <p class="facility-description">Droni tecnici per mappatura, GPS robotizzati, sensori IoT per umidità suolo, trappole digitali con IA, sistemi telemetrici, data processing.</p>
                 </div>
@@ -1494,27 +1381,6 @@
         if (statsSection) {
             statsObserver.observe(statsSection);
         }
-
-        // Timeline animation on scroll
-        const timelineObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.3,
-            rootMargin: '0px 0px -100px 0px'
-        });
-
-        // Observe timeline items
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(50px)';
-            item.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            timelineObserver.observe(item);
-        });
     </script>
 </body>
 </html>
